@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOptions = ['http://localhost:5173','https://gmail-clone-ashy-phi.vercel.app'];
+const allowedOptions = ['http://localhost:5173','https://gmail-clone-pearl-six.vercel.app'];
 app.use(cors({origin: allowedOptions, credentials:true}));
 
 // routes
