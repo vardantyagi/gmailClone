@@ -53,9 +53,10 @@ export const login = async (req, res) => {
     const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
 
     res.cookie('token', token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'strict'
+      httpOnly: true, // Prevent JavaScript to access cookie
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', // CSRF protection
+      maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie expiration time
     });
 
     const sendUser = {
@@ -96,9 +97,9 @@ export const logout = async (req, res) => {
     const token = req.cookies.token;
 
     res.clearCookie('token', {
-      maxAge: 0,
       httpOnly: true,
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     });
 
     // res.cookie('token','',{maxAge: 0});
