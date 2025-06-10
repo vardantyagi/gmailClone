@@ -41,8 +41,8 @@ const appRouter = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const fetchUser = async () => {
-    try {
-      const res = await axios.get('http://localhost:3000/api/v1/user/authUser', { withCredentials: true });
+    try {      
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/authUser`, { withCredentials: true });
       const { data } = res;      
       if (data.success) {
         dispatch(setAuthUser(data.user));

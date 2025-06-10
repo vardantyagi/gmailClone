@@ -10,7 +10,7 @@ const useGetAllEmails = () => {
   useEffect(() => {
     const fetchEmails = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/v1/email/getAllEmails',
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/email/getAllEmails`,
           {
             withCredentials: true
           }

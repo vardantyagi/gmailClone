@@ -46,7 +46,7 @@ const Mail = () => {
   const navigate = useNavigate();
   const deleteHandler = async () => {
     try {
-      const res = await axios.delete(`http://localhost:3000/api/v1/email/${id}`,
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/email/${id}`,
         {
           withCredentials: true
         }

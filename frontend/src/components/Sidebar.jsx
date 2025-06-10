@@ -46,7 +46,7 @@ const Sidebar = () => {
         toast.error('Please login first.');
         return;
       }
-      const res = await axios.post('http://localhost:3000/api/v1/email/getAllInboxEmails', email, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/email/getAllInboxEmails`, email, {
         withCredentials: true
       });
       dispatch(setInboxEmails(res.data.inboxEmails));
