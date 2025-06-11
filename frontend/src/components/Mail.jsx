@@ -52,11 +52,6 @@ const Mail = () => {
         }
       );
       toast.success(res.data.message);
-      if(selectedEmailsPage=='inbox'){
-        dispatch(setSelectedMailsPage('inbox'));
-      }else{
-        dispatch(setSelectedMailsPage('all'));
-      }
       navigate('/');
     } catch (error) {
       toast.error(error.response.data.message);
@@ -65,11 +60,6 @@ const Mail = () => {
   const handleClick = (i) => {
     if (i == 0) {
       navigate('/');
-      if(selectedEmailsPage=='inbox'){
-        dispatch(setSelectedMailsPage('inbox'));
-      }else{
-        dispatch(setSelectedMailsPage('all'));
-      }
     }
     else if (i == 3) {
       deleteHandler();

@@ -34,13 +34,36 @@ const Navbar = () => {
     }
   }
 
-  const loginHandler = ()=>{
+  const loginHandler = () => {
     navigate('/login');
   }
 
-  const signupHandler = ()=>{
+  const signupHandler = () => {
     navigate('/signup');
   }
+
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/authUser`, { withCredentials: true });
+      const { data } = res;
+      if (data.success) {
+        dispatch(setAuthUser(data.user));
+      }
+    } catch (e) {
+      if (e.response && e.response.status === 401) {
+        console.log("Please Login first");
+      } else {
+        console.error("Error fetching user:", e.message);
+      }
+      dispatch(setAuthUser(null));
+    }
+  }
+
+  useEffect(() => {
+    if (!user) {
+      fetchUser();
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(setSearchText(search));
@@ -61,7 +84,8 @@ const Navbar = () => {
       {
         user ? (
           <>
-            <div className='w-[50%] mr-60'>
+            {/* mr-55 */}
+            <div className='w-[50%]  -ml-36'>
               <div className='flex items-center bg-[#EAF1FB] px-2 py-3 rounded-full'>
                 <IoIosSearch size='24px' className='text-gray-700' />
                 <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" placeholder='Search Mail' className='rounded-full w-full bg-transparent outline-none px-1' />

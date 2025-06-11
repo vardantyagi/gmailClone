@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser } from '../toolkit/appSlice';
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
     password: ""
   });
   const dispatch = useDispatch();
+  const {user} = useSelector((store)=>store.app);
   const navigate = useNavigate();
   const onChangeHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });

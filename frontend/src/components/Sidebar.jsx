@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEmails, setInboxEmails, setOpen, setSelectedMailsPage } from '../toolkit/appSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import useGetAllEmails from '../hooks/useGetAllEmails.js';
+import { useNavigate } from 'react-router-dom';
 
 const sidebarItems = [
   {
@@ -38,6 +38,7 @@ const sidebarItems = [
 
 const Sidebar = () => {
   const { inboxEmails, user } = useSelector((store) => store.app);
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const loadInbox = async () => {
     try {
@@ -58,6 +59,7 @@ const Sidebar = () => {
   const handleClick = (i) => {
     if (i == 0) {
       dispatch(setSelectedMailsPage('all'));
+      navigate('/');
     }
     else if (i == 3) {
       loadInbox();
@@ -66,7 +68,7 @@ const Sidebar = () => {
   return (
     <div className='w-[15%]'>
       <div className='p-3'>
-        <button onClick={() => dispatch(setOpen(true))} className='flex items-center gap-2 bg-[#C2E7FF] p-4 rounded-2xl hover:shadow'>
+        <button onClick={() => dispatch(setOpen(true))} className='flex items-center gap-2 bg-[#C2E7FF] p-4 rounded-2xl hover:shadow cursor-pointer'>
           <LuPencil size={'24px'} />Compose
         </button>
       </div>

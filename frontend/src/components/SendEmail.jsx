@@ -30,6 +30,11 @@ const SendEmail = () => {
         }
       );
       dispatch(setEmails([...emails, res.data.email]));
+      setFormData({
+        to: '',
+        subject: '',
+        message: ''
+      })
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -48,7 +53,7 @@ const SendEmail = () => {
         <input onChange={onChangeHandler} name='to' value={formData.to} type="text" placeholder='To' className='outline-none py-1' />
         <input onChange={onChangeHandler} name='subject' value={formData.subject} type="text" placeholder='Subject' className='outline-none py-1' />
         <textarea onChange={onChangeHandler} name='message' value={formData.message} rows={10} cols={30} className='outline-none py-1' placeholder='Message'></textarea>
-        <button type='submit' className='bg-blue-700 rounded-full px-4 py-1 font-bold text-white w-fit'>Send</button>
+        <button type='submit' className='bg-blue-700 rounded-full px-4 py-1 font-bold text-white w-fit cursor-pointer'>Send</button>
       </form>
     </div>
   )

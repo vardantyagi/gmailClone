@@ -6,21 +6,31 @@ import toast from "react-hot-toast";
 
 const useGetAllEmails = () => {
   const dispatch = useDispatch();
-  const {emails} = useSelector((store)=>store.app);
+  const { emails, user } = useSelector((store) => store.app);
   useEffect(() => {
     const fetchEmails = async () => {
       try {
+      //   if(!user){
+      //   return;
+      // }
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/email/getAllEmails`,
           {
             withCredentials: true
           }
         );
-        dispatch(setEmails(res.data.emails));
+        if (res.data.success) {
+          dispatch(setEmails(res.data.emails));
+        }
       } catch (error) {
-        toast.error('Some unexpected error occurred');
+        if (error.response && error.response.status === 401) {
+          console.log("User not authenticated, skipping email fetch.");
+        } else {
+          console.error("Email fetch error:", error.message);
+          toast.error("Unexpected error occurred");
+        }
       }
     }
-    fetchEmails();
+      fetchEmails();
   }, []);
 }
 export default useGetAllEmails;

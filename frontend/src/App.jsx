@@ -8,10 +8,6 @@ import SendEmail from './components/SendEmail'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { Toaster } from 'react-hot-toast';
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setAuthUser } from './toolkit/appSlice'
-import axios from 'axios'
 
 const appRouter = createBrowserRouter([
   {
@@ -39,22 +35,6 @@ const appRouter = createBrowserRouter([
 ])
 
 function App() {
-  const dispatch = useDispatch();
-  const fetchUser = async () => {
-    try {      
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/authUser`, { withCredentials: true });
-      const { data } = res;      
-      if (data.success) {
-        dispatch(setAuthUser(data.user));
-      }
-    } catch (e) {
-      dispatch(setAuthUser(null));
-    }
-  }
-
-  useEffect(() => {
-    fetchUser();
-  }, [])
 
   return (
     <div className='bg-[#F6F8FC] h-screen'>
